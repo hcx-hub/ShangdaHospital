@@ -26,6 +26,8 @@
 
 ## 功能列表
 
+![image-20220318101734697](imgs\image-20220318101734697.png)
+
 ### Android端（用户）
 
 #### 	登陆、注册
@@ -108,11 +110,11 @@
 
 #### 1、登录注册
 
-![84ae4676a3d0f5f01813c011bdea125](C:\Users\糕糕\AppData\Local\Temp\WeChat Files\84ae4676a3d0f5f01813c011bdea125.png)
+![84ae4676a3d0f5f01813c011bdea125](imgs/denglu.png)
 
 #### 2、首页
 
-![image-20220317231157461](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317231157461.png)
+![image-20220317231157461](imgs\image-20220317231157461.png)
 
 ##### 1、医院介绍
 
@@ -122,35 +124,35 @@
 
 用户选择需要挂的科室，可以看到科室医生的信息，选择为自己或他人挂号，随后选择预约的日期以及时间即可。
 
-![image-20220317231429891](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317231429891.png)
+![image-20220317231429891](imgs\image-20220317231429891.png)
 
 ##### 3、自助导诊
 
 用户根据自己的症状，可以了解应该挂的科室。
 
-![image-20220317231740588](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317231740588.png)
+![image-20220317231740588](imgs\image-20220317231740588.png)
 
 ##### 4、门诊记录
 
 用户可以在此查看曾经的门诊记录，并且在详情中查看医生的会诊结果。
 
-![image-20220317231857947](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317231857947.png)
+![image-20220317231857947](imgs\image-20220317231857947.png)
 
 #### 3、防疫
 
-![image-20220317231211791](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317231211791.png)
+![image-20220317231211791](imgs\image-20220317231211791.png)
 
 ##### 1、核酸预约
 
 学生可以通过系统预约核酸检测，也可为他人预约。
 
-![image-20220317232024013](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317232024013.png)
+![image-20220317232024013](imgs\image-20220317232024013.png)
 
 ##### 2、核酸报告
 
 用户在此查看自己的核酸记录、也可替他人查看报告
 
-![image-20220317232251366](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317232251366.png)
+![image-20220317232251366](imgs\image-20220317232251366.png)
 
 ##### 3、发烧报备
 
@@ -158,7 +160,7 @@
 
 #### 4、我
 
-![image-20220317231230409](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317231230409.png)
+![image-20220317231230409](imgs\image-20220317231230409.png)
 
 ##### 1、修改昵称、密码
 
@@ -172,7 +174,7 @@
 
 用户可以添加、删除其他病人，之后可以为已添加的病人挂号。
 
-![image-20220317232732786](C:\Users\糕糕\AppData\Roaming\Typora\typora-user-images\image-20220317232732786.png)
+![image-20220317232732786](imgs\image-20220317232732786.png)
 
 
 
