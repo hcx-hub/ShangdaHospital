@@ -2,7 +2,7 @@
   <div style="padding: 10px">
     <!--    功能区域-->
     <div>
-      <el-button type="primary" @click="add">新增</el-button>
+      <el-button type="primary" @click="add">新增医生</el-button>
       <el-button type="primary">导入</el-button>
       <el-button type="primary">删除</el-button>
     </div>
@@ -14,10 +14,10 @@
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="id" label="ID" sortable/>
       <el-table-column prop="username" label="用户名"/>
-      <el-table-column prop="nickName" label="昵称"/>
-      <el-table-column prop="age" label="年龄"/>
+      <el-table-column prop="password" label="密码"/>
+      <el-table-column prop="realName" label="姓名"/>
       <el-table-column prop="sex" label="性别"/>
-      <el-table-column prop="address" label="地址"/>
+      <el-table-column prop="type" label="类型"/>
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
           <el-button type="text" @click="handleEdit(scope.row)"
@@ -49,27 +49,18 @@
       </div>
 
     </div>
-    <el-dialog v-model="dialogVisible" title="新增" width="30%">
+    <el-dialog v-model="dialogVisible" title="信息" width="30%">
       <el-form :model="form" label-width="120px">
         <el-form-item label="用户名">
           <el-input v-model="form.username" style="width: 80%"/>
         </el-form-item>
-        <el-form-item label="昵称">
-          <el-input v-model="form.nickName" style="width: 80%"/>
-        </el-form-item>
-        <el-form-item label="年龄">
-          <el-input v-model="form.age" style="width: 80%"/>
+        <el-form-item label="姓名">
+          <el-input v-model="form.realName" style="width: 80%"/>
         </el-form-item>
         <el-form-item label="性别">
           <el-radio v-model="form.sex" label="男">男</el-radio>
           <el-radio v-model="form.sex" label="女">女</el-radio>
-          <el-radio v-model="form.sex" label="未知">未知</el-radio>
-
         </el-form-item>
-        <el-form-item label="地址">
-          <el-input type="textarea" v-model="form.address" style="width: 80%"/>
-        </el-form-item>
-
       </el-form>
       <template #footer>
       <span class="dialog-footer">

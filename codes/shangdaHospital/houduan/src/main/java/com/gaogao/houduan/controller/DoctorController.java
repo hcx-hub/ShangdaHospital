@@ -6,17 +6,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gaogao.houduan.common.Result;
 import com.gaogao.houduan.entity.Doctor;
+import com.gaogao.houduan.entity.User;
 import com.gaogao.houduan.mapper.DoctorMapper;
 import com.gaogao.houduan.mapper.UserMapper;
-import com.gaogao.houduan.entity.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.Wrapper;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/doctor")
+public class DoctorController {
 
     @Resource
     UserMapper userMapper;
@@ -29,34 +28,17 @@ public class UserController {
         if (user.getPassword() == null) {
             user.setPassword("123");
         }
-        user.setType(1);
         userMapper.insert(user);
-//        Integer docid = user.getId();
+        Integer docid = user.getId();
         String docname = user.getRealName();
         Doctor doctor = new Doctor();
-//        doctor.setDoctorId(docid);
+        doctor.setDoctorId(docid);
         doctor.setDoctorName(docname);
         doctorMapper.insert(doctor);
         return Result.success();
     }
-    @PostMapping("/login")
-    public Result<?> login(@RequestBody User user) {
-        User res = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, user.getUsername()).eq(User::getPassword, user.getPassword()));
-        if (res==null){
-            return Result.error("-1","用户名或密码错误");
-        }
-        return Result.success(res);
-    }
-    @PostMapping("/register")
-    public Result<?> register(@RequestBody User user) {
-        User res = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, user.getUsername()));
-        if (res!=null){
-            return Result.error("-1","用户名已存在");
-        }
 
-        userMapper.insert(user);
-        return Result.success();
-    }
+
     @PutMapping
     public Result<?> update(@RequestBody User user) {
         userMapper.updateById(user);
