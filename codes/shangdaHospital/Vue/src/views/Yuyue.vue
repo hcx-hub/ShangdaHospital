@@ -14,6 +14,7 @@
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="id" label="ID" sortable/>
       <el-table-column prop="patientName" label="病人姓名"/>
+      <el-table-column prop="sex" label="病人性别"/>
       <el-table-column prop="doctorName" label="医生姓名"/>
       <el-table-column prop="time" label="预约时间"/>
       <el-table-column prop="department" label="科室"/>

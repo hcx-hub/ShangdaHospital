@@ -47,25 +47,26 @@ public class YuyueController {
         Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
         return Result.success(yuyuePage);
     }
-    @GetMapping("/loadall")
-    public Result<?> loadAll(@RequestParam(defaultValue = "1") Integer pageNum,
-                              @RequestParam(defaultValue = "10") Integer pageSize)
-    {
-
-        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
-        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
-        return Result.success(yuyuePage);
-    }
-    @GetMapping("/findbyname")
-    public Result<?> findByname(@RequestParam(defaultValue = "1") Integer pageNum,
-                              @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "") String search) {
-
-        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
-        if (StrUtil.isNotBlank(search)){
-            wrapper.eq(Yuyue::getPatientName,search);
-        }
-        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
-        return Result.success(yuyuePage);
-    }
+//    @GetMapping("/loadall")
+//    public Result<?> loadAll(@RequestParam(defaultValue = "1") Integer pageNum,
+//                              @RequestParam(defaultValue = "10") Integer pageSize)
+//    {
+//
+//        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
+//        Page<Yuyue> yuyuePage = yuyueMapper.findallPage(new Page<>(pageNum, pageSize));
+//        System.out.println(yuyuePage);
+//        return Result.success(yuyuePage);
+//    }
+//    @GetMapping("/findbyname")
+//    public Result<?> findByname(@RequestParam(defaultValue = "1") Integer pageNum,
+//                              @RequestParam(defaultValue = "10") Integer pageSize,
+//                              @RequestParam(defaultValue = "") String search) {
+//
+//        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
+//        if (StrUtil.isNotBlank(search)){
+//            wrapper.eq(Yuyue::getPatientName,search);
+//        }
+//        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
+//        return Result.success(yuyuePage);
+//    }
 }
