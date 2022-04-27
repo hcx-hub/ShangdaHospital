@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
-// import HomeView from '../views/User.vue'
+// import HomeView from '../views/Doctor.vue'
 import Layout from '../layout/Layout.vue'
 // import * as path from "path";
 // 也可以import Login from '../views/Login.vue'
@@ -12,14 +12,19 @@ const routes = [
         redirect: "/login",//重定向，什么都不加的时候自动跳转到home下
         children: [
             {
-                path: 'user',
-                name: 'User',
-                component: () => import("@/views/User.vue")
+                path: 'doctor',
+                name: 'Doctor',
+                component: () => import("@/views/Doctor.vue")
             },
             {
                 path: 'yuyue',
                 name: 'Yuyue',
                 component: () => import("@/views/Yuyue.vue")
+            },
+            {
+                path: 'patient',
+                name: 'Patient',
+                component: () => import("@/views/Patient.vue")
             },
         ]
     },

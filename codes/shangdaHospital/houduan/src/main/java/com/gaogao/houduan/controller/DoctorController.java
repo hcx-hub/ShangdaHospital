@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gaogao.houduan.common.Result;
 import com.gaogao.houduan.entity.Doctor;
-import com.gaogao.houduan.entity.User;
 import com.gaogao.houduan.mapper.DoctorMapper;
-import com.gaogao.houduan.mapper.UserMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,49 +16,67 @@ import javax.annotation.Resource;
 public class DoctorController {
 
     @Resource
-    UserMapper userMapper;
-    @Resource
     DoctorMapper doctorMapper;
 
 
     @PostMapping
-    public Result<?> save(@RequestBody User user) {
-        if (user.getPassword() == null) {
-            user.setPassword("123");
+    public Result<?> save(@RequestBody Doctor doctor) {
+        if (doctor.getPassword() == null) {
+            doctor.setPassword("123");
         }
-        userMapper.insert(user);
-        Integer docid = user.getId();
-        String docname = user.getRealName();
-        Doctor doctor = new Doctor();
-        doctor.setDoctorId(docid);
-        doctor.setDoctorName(docname);
+        doctorMapper.insert(doctor);
+        return Result.success();
+    }
+    @PostMapping("/login")
+    public Result<?> login(@RequestBody Doctor doctor) {
+        Doctor res = doctorMapper.selectOne(Wrappers.<Doctor>lambdaQuery().eq(Doctor::getUsername, doctor.getUsername()).eq(Doctor::getPassword, doctor.getPassword()));
+        if (res==null){
+            return Result.error("-1","用户名或密码错误");
+        }
+        return Result.success(res);
+    }
+    @PostMapping("/register")
+    public Result<?> register(@RequestBody Doctor doctor) {
+        Doctor res = doctorMapper.selectOne(Wrappers.<Doctor>lambdaQuery().eq(Doctor::getUsername, doctor.getUsername()));
+        if (res!=null){
+            return Result.error("-1","用户名已存在");
+        }
+
         doctorMapper.insert(doctor);
         return Result.success();
     }
 
-
     @PutMapping
-    public Result<?> update(@RequestBody User user) {
-        userMapper.updateById(user);
+    public Result<?> update(@RequestBody Doctor doctor) {
+        doctorMapper.updateById(doctor);
         return Result.success();
     }
     @DeleteMapping("/delete/{id}")
     public Result<?> delete(@PathVariable Long id) {
-        userMapper.deleteById(id);
+        doctorMapper.deleteById(id);
         return Result.success();
     }
 
-    @GetMapping
-    public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
-                              @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "") String search) {
+    @GetMapping("/loadall")
+    public Result<?> loadAll(@RequestParam(defaultValue = "1") Integer pageNum,
+                             @RequestParam(defaultValue = "10") Integer pageSize)
+    {
 
-        LambdaQueryWrapper<User> wrapper=Wrappers.<User>lambdaQuery();
+        LambdaQueryWrapper<Doctor> wrapper=Wrappers.<Doctor>lambdaQuery();
+        Page<Doctor> doctorPage = doctorMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
+        return Result.success(doctorPage);
+    }
+    @GetMapping("/findbyname")
+    public Result<?> findByname(@RequestParam(defaultValue = "1") Integer pageNum,
+                                @RequestParam(defaultValue = "10") Integer pageSize,
+                                @RequestParam(defaultValue = "") String search) {
+
+        LambdaQueryWrapper<Doctor> wrapper=Wrappers.<Doctor>lambdaQuery();
         if (StrUtil.isNotBlank(search)){
-            wrapper.like(User::getRealName,search);
+            wrapper.eq(Doctor::getDoctorName,search);
         }
-        Page<User> userPage = userMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
-        return Result.success(userPage);
+        Page<Doctor> doctorPage = doctorMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
+        return Result.success(doctorPage);
     }
 
 }

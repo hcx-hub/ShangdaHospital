@@ -6,7 +6,8 @@
       <el-dropdown>
     <span class="el-dropdown-link">
       <br/>
-      {{realName}}<el-icon class="el-icon--right">
+      {{doctorName}}<el-icon class="el-icon--right">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ba633cb8=""><path fill="currentColor" d="M831.872 340.864 512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"></path></svg>
         <arrow-down />
       </el-icon>
     </span>
@@ -28,7 +29,7 @@ export default {
   // nickName: JSON.parse(sessionStorage.getItem('user')).nickName,
   data(){
     return{
-      realName: JSON.parse(sessionStorage.getItem('user')).realName.toString()
+      doctorName: JSON.parse(sessionStorage.getItem('user')).doctorName.toString()
       //sessionStorage.getItem()输入的参数是key，获取的是他的value,本例返回的是一个json字符串
     }
   },

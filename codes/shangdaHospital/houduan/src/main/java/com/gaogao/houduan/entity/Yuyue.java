@@ -20,7 +20,7 @@ public class Yuyue {
     private String patientName;
     private String doctorId;
     private String doctorName;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date time;
     private String department;
 }
