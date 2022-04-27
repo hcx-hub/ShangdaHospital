@@ -10,6 +10,8 @@ import com.gaogao.houduan.mapper.YuyueMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/yuyue")
@@ -44,19 +46,21 @@ public class YuyueController {
         if (StrUtil.isNotBlank(search)){
             wrapper.eq(Yuyue::getDoctorId,search);
         }
-        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
+        Page<Yuyue> yuyuePage = yuyueMapper.findPage(new Page<>(pageNum, pageSize));
+//        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
         return Result.success(yuyuePage);
     }
-//    @GetMapping("/loadall")
-//    public Result<?> loadAll(@RequestParam(defaultValue = "1") Integer pageNum,
-//                              @RequestParam(defaultValue = "10") Integer pageSize)
-//    {
-//
-//        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
-//        Page<Yuyue> yuyuePage = yuyueMapper.findallPage(new Page<>(pageNum, pageSize));
-//        System.out.println(yuyuePage);
-//        return Result.success(yuyuePage);
-//    }
+    @GetMapping("/loadall")
+    public Result<?> loadAll(@RequestParam(defaultValue = "1") Integer pageNum,
+                              @RequestParam(defaultValue = "10") Integer pageSize)
+    {
+
+        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
+        Page<Yuyue> yuyuePage = yuyueMapper.findallPage(new Page<>(pageNum, pageSize));
+        System.out.println(yuyuePage);
+
+        return Result.success(yuyuePage);
+    }
 //    @GetMapping("/findbyname")
 //    public Result<?> findByname(@RequestParam(defaultValue = "1") Integer pageNum,
 //                              @RequestParam(defaultValue = "10") Integer pageSize,
