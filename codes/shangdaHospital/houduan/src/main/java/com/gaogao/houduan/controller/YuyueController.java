@@ -37,16 +37,17 @@ public class YuyueController {
         return Result.success();
     }
 
+    //医生根据自己的id查看预约自己的病人
     @GetMapping("/loadself")
     public Result<?> loadSelf(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "") String search) {
+                              @RequestParam(defaultValue = "") Integer search) {
 
-        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
-        if (StrUtil.isNotBlank(search)){
-            wrapper.eq(Yuyue::getDoctorId,search);
-        }
-        Page<Yuyue> yuyuePage = yuyueMapper.findPage(new Page<>(pageNum, pageSize));
+//        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
+//        if (StrUtil.isNotBlank(search)){
+//            wrapper.eq(Yuyue::getDoctorId,search);
+//        }
+        Page<Yuyue> yuyuePage = yuyueMapper.findselfPage(new Page<>(pageNum, pageSize),search);
 //        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
         return Result.success(yuyuePage);
     }

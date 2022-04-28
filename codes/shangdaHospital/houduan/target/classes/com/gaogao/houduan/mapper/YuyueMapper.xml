@@ -9,48 +9,69 @@
         <result column="patient_id" property="patientId"/>
         <result column="doctor_id" property="doctorId"/>
         <result column="time" property="time"/>
-<!--                一对多
-配置集合信息
-property：集合名称
-ofType:当前集合中的数据类型
--->
-<!--                <collection property="patientList" javaType="ArrayList" ofType="com.gaogao.houduan.entity.Patient">-->
-<!--                    <result column="patient_name" property="patientName"/>-->
-<!--                    <result column="sex" property="sex"/>-->
-<!--                </collection>-->
+        <!--                一对多
+        配置集合信息
+        property：集合名称
+        ofType:当前集合中的数据类型
+        -->
         <collection property="doctorList" javaType="ArrayList" ofType="com.gaogao.houduan.entity.Doctor">
             <result column="d_id" property="id"/>
             <result column="doctor_name" property="doctorName"/>
             <result column="department" property="department"/>
         </collection>
-
+        <collection property="patientList" javaType="ArrayList" ofType="com.gaogao.houduan.entity.Patient">
+            <result column="p_id" property="id"/>
+            <result column="patient_name" property="patientName"/>
+            <result column="sex" property="sex"/>
+        </collection>
     </resultMap>
 
-<!--        查询医生自己的预约-->
-<!--        <select id="findselfPage" resultMap="YuyueMap">-->
-<!--            SELECT yuyue.*, doctor.doctor_name, doctor.department, patient_name, patient.sex-->
-<!--            FROM yuyue-->
-<!--                     INNER JOIN doctor on doctor.id = doctor_id-->
-<!--                     INNER JOIN patient on patient_id = patient.id-->
-<!--            where doctor_id = 2-->
-<!--        </select>-->
-<!--        查询所有的预约-->
-        <select id="findallPage" resultMap="YuyueMap">
-            SELECT `yuyue`.*, doctor.id as d_id,doctor.doctor_name, doctor.department
-            FROM `yuyue`
-                     left JOIN doctor on doctor.id = `yuyue`.doctor_id
-
-        </select>
-    <select id="findPage" resultMap="YuyueMap">
-        SELECT `yuyue`.*, doctor.id as d_id,doctor.doctor_name, doctor.department
-        FROM `yuyue`
-                 left JOIN doctor on doctor.id = `yuyue`.doctor_id
+    <!--        查询医生自己的预约-->
+    <select id="findselfPage" resultMap="YuyueMap">
+        SELECT yuyue.*,
+               doctor.id  as d_id,
+               doctor.doctor_name,
+               doctor.department,
+               patient.id as p_id,
+               patient_name,
+               patient.sex
+        FROM yuyue
+                 INNER JOIN doctor on doctor.id = doctor_id
+                 INNER JOIN patient on patient_id = patient.id
+        where doctor_id = #{doctorId}
+    </select>
+    <!--        查询所有的预约-->
+    <select id="findallPage" resultMap="YuyueMap">
+        SELECT yuyue.*,
+               doctor.id  as d_id,
+               doctor.doctor_name,
+               doctor.department,
+               patient.id as p_id,
+               patient_name,
+               patient.sex
+        FROM yuyue
+                 left JOIN doctor on doctor.id = doctor_id
+                 left JOIN patient on patient_id = patient.id
 
     </select>
+    <!--    <select id="findPage" resultMap="YuyueMap">-->
+    <!--        SELECT `yuyue`.*, doctor.id as d_id, doctor.doctor_name, doctor.department-->
+    <!--        FROM `yuyue`-->
+    <!--                 left JOIN doctor on doctor.id = `yuyue`.doctor_id-->
 
-<!--    <select id="findallPage" resultMap="YuyueMap">-->
-<!--        SELECT yuyue.*, doctor.doctor_name, doctor.department-->
-<!--        FROM yuyue-->
-<!--                 inner JOIN doctor on doctor.id = doctor_id-->
-<!--    </select>-->
+    <!--    </select>-->
+    <!--    备份-->
+    <!--    <select id="findallPage" resultMap="YuyueMap">-->
+    <!--        SELECT `yuyue`.*, doctor.id as d_id,doctor.doctor_name, doctor.department-->
+    <!--        FROM `yuyue`-->
+    <!--                 left JOIN doctor on doctor.id = `yuyue`.doctor_id-->
+
+    <!--    </select>-->
+    <!--    <select id="findPage" resultMap="YuyueMap">-->
+    <!--        SELECT `yuyue`.*, doctor.id as d_id,doctor.doctor_name, doctor.department-->
+    <!--        FROM `yuyue`-->
+    <!--                 left JOIN doctor on doctor.id = `yuyue`.doctor_id-->
+
+    <!--    </select>-->
+
 </mapper>

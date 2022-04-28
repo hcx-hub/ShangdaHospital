@@ -13,11 +13,11 @@
     </div>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="id" label="ID" sortable/>
-      <el-table-column prop="patientName" label="病人姓名"/>
-      <el-table-column prop="sex" label="病人性别"/>
-      <el-table-column prop="doctorName" label="医生姓名"/>
+      <el-table-column prop="patientList[0].patientName" label="病人姓名"/>
+      <el-table-column prop="patientList[0].sex" label="病人性别"/>
+      <el-table-column prop="doctorList[0].doctorName" label="医生姓名"/>
       <el-table-column prop="time" label="预约时间"/>
-      <el-table-column prop="department" label="科室"/>
+      <el-table-column prop="doctorList[0].department" label="科室"/>
       <el-table-column fixed="right" label="操作" width="200">
         <template #default="scope">
           <el-button type="primary" round @click="handleEdit(scope.row)"
@@ -101,7 +101,7 @@ export default {
       pageSize: 10,
       total: 0,
       tableData: [],
-
+      doctorList:[]
     }
 
   },
@@ -124,6 +124,7 @@ export default {
           console.log(res)
           this.tableData = res.data.records
           this.total = res.data.total
+
         })
       } else {
         var doctorid = parseInt(JSON.parse(sessionStorage.getItem('user')).id.toString())

@@ -26,9 +26,8 @@ public class Yuyue {
     private Date time;
 
 //    //TableField注解表示数据库不存在的字段，而java需要使用，加上这个注解就不会报错
-//    @TableField(exist = false)
-//    private List<Patient> patientList;
     @TableField(exist = false)
     private List<Doctor> doctorList;
-
+    @TableField(exist = false)
+    private List<Patient> patientList;
 }
