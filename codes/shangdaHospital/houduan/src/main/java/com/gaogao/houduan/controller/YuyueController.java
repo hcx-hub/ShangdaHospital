@@ -20,14 +20,17 @@ public class YuyueController {
     @Resource
     YuyueMapper yuyueMapper;
 
-    @PostMapping
-    public Result<?> save(@RequestBody Yuyue yuyue) {
-        yuyueMapper.insert(yuyue);
-        return Result.success();
-    }
-    
-    @PutMapping
-    public Result<?> update(@RequestBody Yuyue yuyue) {
+//    @PostMapping
+//    public Result<?> save(@RequestBody Yuyue yuyue) {
+//        yuyueMapper.insert(yuyue);
+//        return Result.success();
+//    }
+
+    //预约表statue设1，result为诊断结果
+    @PutMapping("/zhenduan")
+    public Result<?> zhenduan(@RequestBody Yuyue yuyue) {
+        System.out.println("结果："+yuyue.getResult());
+        yuyue.setStatue(1);
         yuyueMapper.updateById(yuyue);
         return Result.success();
     }

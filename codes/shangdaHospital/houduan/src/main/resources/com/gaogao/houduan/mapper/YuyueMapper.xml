@@ -9,6 +9,8 @@
         <result column="patient_id" property="patientId"/>
         <result column="doctor_id" property="doctorId"/>
         <result column="time" property="time"/>
+        <result column="result" property="result"/>
+        <result column="statue" property="statue"/>
         <!--                一对多
         配置集合信息
         property：集合名称
@@ -38,7 +40,7 @@
         FROM yuyue
                  INNER JOIN doctor on doctor.id = doctor_id
                  INNER JOIN patient on patient_id = patient.id
-        where doctor_id = #{doctorId}
+        where doctor_id = #{doctorId} and  yuyue.statue = 0
     </select>
     <!--        查询所有的预约-->
     <select id="findallPage" resultMap="YuyueMap">
@@ -52,7 +54,7 @@
         FROM yuyue
                  left JOIN doctor on doctor.id = doctor_id
                  left JOIN patient on patient_id = patient.id
-
+        where yuyue.statue = 0
     </select>
 
     <!--    </select>-->

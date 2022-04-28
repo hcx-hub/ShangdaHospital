@@ -51,35 +51,23 @@
       </div>
 
     </div>
-    <!--    <el-dialog v-model="dialogVisible" title="新增" width="30%">-->
-    <!--      <el-form :model="form" label-width="120px">-->
-    <!--        <el-form-item label="用户名">-->
-    <!--          <el-input v-model="form.username" style="width: 80%"/>-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item label="昵称">-->
-    <!--          <el-input v-model="form.nickName" style="width: 80%"/>-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item label="年龄">-->
-    <!--          <el-input v-model="form.age" style="width: 80%"/>-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item label="性别">-->
-    <!--          <el-radio v-model="form.sex" label="男">男</el-radio>-->
-    <!--          <el-radio v-model="form.sex" label="女">女</el-radio>-->
-    <!--          <el-radio v-model="form.sex" label="未知">未知</el-radio>-->
+        <el-dialog v-model="dialogVisible" title="诊断" width="30%">
+          <el-form :model="zhenduanform" label-width="120px">
+            <el-form-item label="姓名">
+              <el-input v-model="zhenduanform.patientList[0].patientName" style="width: 80%"/>
+            </el-form-item>
+            <el-form-item label="诊断结果">
+              <el-input type="textarea" v-model="zhenduanform.result" style="width: 80%"/>
+            </el-form-item>
 
-    <!--        </el-form-item>-->
-    <!--        <el-form-item label="地址">-->
-    <!--          <el-input type="textarea" v-model="form.address" style="width: 80%"/>-->
-    <!--        </el-form-item>-->
-
-    <!--      </el-form>-->
-    <!--      <template #footer>-->
-    <!--      <span class="dialog-footer">-->
-    <!--        <el-button @click="dialogVisible = false">取消</el-button>-->
-    <!--        <el-button type="primary" @click="save">确定</el-button>-->
-    <!--      </span>-->
-    <!--      </template>-->
-    <!--    </el-dialog>-->
+          </el-form>
+          <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="dialogVisible = false">取消</el-button>
+            <el-button type="primary" @click="save">确定</el-button>
+          </span>
+          </template>
+        </el-dialog>
 
   </div>
 </template>
@@ -95,13 +83,15 @@ export default {
   data() {
     return {
       form: {},
+      zhenduanform:{},
       dialogVisible: false,
       search: '',
       currentPage: 1,
       pageSize: 10,
       total: 0,
       tableData: [],
-      doctorList:[]
+      doctorList:[],
+
     }
 
   },
@@ -159,49 +149,47 @@ export default {
       })
     },
     save() {
-      if (this.form.id) {
         //ctrl+r把user换成yuyue
-        request.put("/yuyue", this.form).then(res => {
+        request.put("/yuyue/zhenduan",this.zhenduanform).then(res => {
           console.log(res)
           if (res.code === '0') {
             this.$message({
               type: "success",
-              message: "修改成功"
+              message: "诊断完成"
             })
           } else {
             this.$message({
               type: "error",
-              message: "修改失败"
-            })
-          }
-
-        })
-      } else {
-        request.post("/yuyue", this.form).then(res => {
-          console.log(res)
-          if (res.code === '0') {
-            this.$message({
-              type: "success",
-              message: "新增成功"
-            })
-          } else {
-            this.$message({
-              type: "error",
-              message: "新增失败"
+              message: "诊断失败"
             })
           }
         })
-      }
 
-      this.load()
+      //  else {
+      //   request.post("/yuyue", this.form).then(res => {
+      //     console.log(res)
+      //     if (res.code === '0') {
+      //       this.$message({
+      //         type: "success",
+      //         message: "新增成功"
+      //       })
+      //     } else {
+      //       this.$message({
+      //         type: "error",
+      //         message: "新增失败"
+      //       })
+      //     }
+      //   })
+      // }
       this.dialogVisible = false
+      this.load()
     },
     add() {
       this.dialogVisible = true;
       this.form = {}
     },
     handleEdit(row) {
-      this.form = JSON.parse(JSON.stringify(row))
+      this.zhenduanform = JSON.parse(JSON.stringify(row))
       this.dialogVisible = true
       console.log(row)
     },
