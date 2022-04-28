@@ -10,4 +10,7 @@ public interface YuyueMapper extends BaseMapper<Yuyue> {
     Page<Yuyue> findselfPage(Page<Yuyue> page,@Param("doctorId") Integer doctorId);
 //    //查询所有预约
     Page<Yuyue> findallPage(Page<Yuyue> page);
+    //按患者名查询
+    Page<Yuyue> findBypatientname(Page<Yuyue> page,@Param("patientName") String patientName);
+
 }

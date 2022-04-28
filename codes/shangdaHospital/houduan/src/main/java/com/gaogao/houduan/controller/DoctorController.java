@@ -19,14 +19,7 @@ public class DoctorController {
     DoctorMapper doctorMapper;
 
 
-    @PostMapping
-    public Result<?> save(@RequestBody Doctor doctor) {
-        if (doctor.getPassword() == null) {
-            doctor.setPassword("123");
-        }
-        doctorMapper.insert(doctor);
-        return Result.success();
-    }
+
     @PostMapping("/login")
     public Result<?> login(@RequestBody Doctor doctor) {
         Doctor res = doctorMapper.selectOne(Wrappers.<Doctor>lambdaQuery().eq(Doctor::getUsername, doctor.getUsername()).eq(Doctor::getPassword, doctor.getPassword()));
@@ -41,7 +34,6 @@ public class DoctorController {
         if (res!=null){
             return Result.error("-1","用户名已存在");
         }
-
         doctorMapper.insert(doctor);
         return Result.success();
     }

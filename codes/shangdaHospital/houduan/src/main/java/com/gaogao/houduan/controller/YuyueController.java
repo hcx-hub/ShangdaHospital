@@ -20,11 +20,11 @@ public class YuyueController {
     @Resource
     YuyueMapper yuyueMapper;
 
-//    @PostMapping
-//    public Result<?> save(@RequestBody Yuyue yuyue) {
-//        yuyueMapper.insert(yuyue);
-//        return Result.success();
-//    }
+    @PostMapping("/insert")
+    public Result<?> save(@RequestBody Yuyue yuyue) {
+        yuyueMapper.insert(yuyue);
+        return Result.success();
+    }
 
     //预约表statue设1，result为诊断结果
     @PutMapping("/zhenduan")
@@ -65,16 +65,16 @@ public class YuyueController {
 
         return Result.success(yuyuePage);
     }
-//    @GetMapping("/findbyname")
-//    public Result<?> findByname(@RequestParam(defaultValue = "1") Integer pageNum,
-//                              @RequestParam(defaultValue = "10") Integer pageSize,
-//                              @RequestParam(defaultValue = "") String search) {
-//
+    @GetMapping("/findbyname")
+    public Result<?> findByname(@RequestParam(defaultValue = "1") Integer pageNum,
+                              @RequestParam(defaultValue = "10") Integer pageSize,
+                              @RequestParam(defaultValue = "") String search) {
+
 //        LambdaQueryWrapper<Yuyue> wrapper=Wrappers.<Yuyue>lambdaQuery();
 //        if (StrUtil.isNotBlank(search)){
-//            wrapper.eq(Yuyue::getPatientName,search);
+//            wrapper.eq(Yuyue::getPatientList,search);
 //        }
-//        Page<Yuyue> yuyuePage = yuyueMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
-//        return Result.success(yuyuePage);
-//    }
+        Page<Yuyue> yuyuePage = yuyueMapper.findBypatientname(new Page<>(pageNum, pageSize), search);
+        return Result.success(yuyuePage);
+    }
 }

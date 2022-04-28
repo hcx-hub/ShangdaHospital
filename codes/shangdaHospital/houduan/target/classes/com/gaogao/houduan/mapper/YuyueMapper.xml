@@ -56,7 +56,20 @@
                  left JOIN patient on patient_id = patient.id
         where yuyue.statue = 0
     </select>
-
+    <!--        按患者名查询-->
+    <select id="findBypatientname" resultMap="YuyueMap">
+        SELECT yuyue.*,
+               doctor.id  as d_id,
+               doctor.doctor_name,
+               doctor.department,
+               patient.id as p_id,
+               patient_name,
+               patient.sex
+        FROM yuyue
+                 left JOIN doctor on doctor.id = doctor_id
+                 left JOIN patient on patient_id = patient.id
+        where patient.patient_name =#{patientName} and yuyue.statue = 0
+    </select>
     <!--    </select>-->
     <!--    备份-->
     <!--    <select id="findallPage" resultMap="YuyueMap">-->

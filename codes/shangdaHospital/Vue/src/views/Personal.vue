@@ -1,74 +1,61 @@
 <template>
-  <div style="padding: 10px">
-    <!--    功能区域-->
-<!--    <div>-->
-<!--      <el-button type="primary" @click="add">新增</el-button>-->
-<!--      <el-button type="primary">导入</el-button>-->
-<!--      <el-button type="primary">删除</el-button>-->
-<!--    </div>-->
-    <!--    搜索区域-->
-    <div style="margin: 10px 0">
-      <el-input v-model="search" placeholder="请输入关键字" style="width: 20%" clearable/>
-      <el-button type="primary" style="margin-left: 5px" @click="querry">查询</el-button>
-    </div>
-    <el-table :data="tableData" stripe style="width: 100%">
-      <el-table-column prop="id" label="ID" sortable/>
-      <el-table-column prop="patientList[0].patientName" label="病人姓名"/>
-      <el-table-column prop="patientList[0].sex" label="病人性别"/>
-      <el-table-column prop="doctorList[0].doctorName" label="医生姓名"/>
-      <el-table-column prop="time" label="预约时间"/>
-      <el-table-column prop="doctorList[0].department" label="科室"/>
-      <el-table-column fixed="right" label="操作" width="200">
-        <template #default="scope">
-          <el-button type="primary" round @click="handleEdit(scope.row)"
-          >诊断
-          </el-button>
-<!--          <el-button type="primary" round>Primary</el-button>-->
-          <el-popconfirm title="确定删除吗?" @confirm="handleDelete(scope.row.id)">-->
-            <template #reference>
-              <el-button type="danger" round>删除</el-button>
+  <div style="padding: 20px;width: 60px">
 
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div style="margin: 10px 0">
-      <div class="demo-pagination-block">
-        <div class="demonstration"></div>
-        <el-pagination
-            v-model:currentPage="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[5, 10, 20]"
-            :small="small"
-            :disabled="disabled"
-            :background="background"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-        />
-      </div>
-
-    </div>
-        <el-dialog v-model="dialogVisible" title="诊断" width="30%">
-          <el-form :model="zhenduanform" label-width="120px">
-            <el-form-item label="病人姓名">
-<!--              <el-input v-model="zhenduanform.patientList[0].patientName" style="width: 80%"/>-->
-              {{zhenduanform.patientList[0].patientName}}
-            </el-form-item>
-            <el-form-item label="诊断结果">
-              <el-input type="textarea" v-model="zhenduanform.result" style="width: 80%;" rows="10"/>
-            </el-form-item>
-
-          </el-form>
-          <template #footer>
-          <span class="dialog-footer">
-            <el-button @click="dialogVisible = false">取消</el-button>
-            <el-button type="primary" @click="save">确定</el-button>
-          </span>
-          </template>
-        </el-dialog>
+    <el-form :model="form" label-width="60px">
+      <el-form-item label="姓名">
+        <el-input v-model="form.name" />
+      </el-form-item>
+      <el-form-item label="Activity zone">
+        <el-select v-model="form.region" placeholder="please select your zone">
+          <el-option label="Zone one" value="shanghai" />
+          <el-option label="Zone two" value="beijing" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Activity time">
+        <el-col :span="11">
+          <el-date-picker
+              v-model="form.date1"
+              type="date"
+              placeholder="Pick a date"
+              style="width: 100%"
+          />
+        </el-col>
+        <el-col :span="2" class="text-center">
+          <span class="text-gray-500">-</span>
+        </el-col>
+        <el-col :span="11">
+          <el-time-picker
+              v-model="form.date2"
+              placeholder="Pick a time"
+              style="width: 100%"
+          />
+        </el-col>
+      </el-form-item>
+      <el-form-item label="Instant delivery">
+        <el-switch v-model="form.delivery" />
+      </el-form-item>
+      <el-form-item label="Activity type">
+        <el-checkbox-group v-model="form.type">
+          <el-checkbox label="Online activities" name="type" />
+          <el-checkbox label="Promotion activities" name="type" />
+          <el-checkbox label="Offline activities" name="type" />
+          <el-checkbox label="Simple brand exposure" name="type" />
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="Resources">
+        <el-radio-group v-model="form.resource">
+          <el-radio label="Sponsor" />
+          <el-radio label="Venue" />
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="Activity form">
+        <el-input v-model="form.desc" type="textarea" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">Create</el-button>
+        <el-button>Cancel</el-button>
+      </el-form-item>
+    </el-form>
 
   </div>
 </template>
@@ -79,7 +66,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: 'Yuyue',
+  name: 'Person',
   components: {},
   data() {
     return {
@@ -103,6 +90,7 @@ export default {
     load() {
       var userid = parseInt(JSON.parse(sessionStorage.getItem('user')).id.toString())
       console.log('usertype:' + userid)
+
       if (userid === 1) {
         request.get("/yuyue/loadall",
             {

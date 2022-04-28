@@ -132,6 +132,7 @@ export default {
               type: "success",
               message: "修改成功"
             })
+            this.load()
           } else {
             this.$message({
               type: "error",
@@ -141,13 +142,14 @@ export default {
 
         })
       } else {
-        request.post("/doctor", this.form).then(res => {
+        request.post("/doctor/register", this.form).then(res => {
           console.log(res)
           if (res.code === '0') {
             this.$message({
               type: "success",
               message: "新增成功"
             })
+            this.load()
           } else {
             this.$message({
               type: "error",
@@ -156,7 +158,7 @@ export default {
           }
         })
       }
-      this.load()
+
       this.dialogVisible = false
 
     },
