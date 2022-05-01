@@ -3,37 +3,27 @@
 		<view class="top_item">
 			<text style="color: #000000;font-size: 22px;font-weight: bold;">欢迎使用，商大医院！</text>
 		</view>
-		<view class="input-item" style="margin-top: 80rpx;">
-			<view class="title-content">
-				<!-- <text class="title">账号</text> -->
+		<u-form :model="form" style="margin-top: 80upx;width: 700upx;">
+			<u-form-item label="" style="margin-left: 40upx;">
 				<image src="../../static/icons/user.png" style="width: 60upx;height: 60upx;"></image>
-			</view>
-			<input class="input" placeholder="用户名" style="margin-left: 40rpx;" />
-		</view>
-		<view class="input-item">
-			<view class="title-content">
-				<!-- <text class="title">密码</text> -->
+				<u-input v-model="form.username" style="margin-left: 40upx;" />
+			</u-form-item>
+			<u-form-item label="" style="margin-left: 40upx;">
 				<image src="../../static/icons/password.png" style="width: 60upx;height: 60upx;"></image>
-			</view>
-			<input class="input" placeholder="请输入密码" style="margin-left: 40rpx;" />
+				<u-input v-model="form.password" style="margin-left: 40upx;" />
+			</u-form-item>
 
-		</view>
-		<view class="button" @tap="login">登录</view>
+
+		</u-form>
+		<u-button @click="submit" type="primary" class="button" @tap="login">登录</u-button>
+
 
 		<view class="" style="margin-top: 30upx;">
 			<text style="color: #808080;font-size: 30upx;margin-left: 200upx; " @tap="">注册</text>
 			<text style="color: #808080;font-size: 30upx;margin-left: 200upx; " @tap="">忘记密码</text>
 
 		</view>
-		<u-form :model="form" >
-				<u-form-item label="姓名"><u-input v-model="form.username" /></u-form-item>
-				<u-form-item label="简介"><u-input v-model="form.password" /></u-form-item>
-				
-				
-			</u-form>
-
-
-
+		<u-toast ref="uToast" />
 
 	</view>
 
@@ -52,42 +42,62 @@
 			login() {
 				request.post("/patient/login", this.form).then(res => {
 					console.log(res)
-					
+
 					if (res.code === '0') {
-						console.log('000')
 						sessionStorage.setItem("user", JSON.stringify(res.data)) //缓存用户信息，注意session的key是user
 						//登录成功后进行页面跳转
+						// this.successToast(res.msg)
 						uni.switchTab({
-							url:'../index/index'
+							url: '../index/index'
 						})
-						console.log('111')
-					} else {
-						
+
+					} else {//登录失败
+						this.failToast(res.msg)
+						this.form.password=''//清空密码栏
+						console.log(res.msg)
 					}
 
 				})
-			}
-		}
+			},
+			failToast(msg) {
+				this.$refs.uToast.show({
+					title: msg,
+					type: 'error',
+					// url: '../index/index',
+					position: 'bottom',
+				})
+			},
+			// successToast(msg) {
+			// 	this.$refs.uToast.show({
+			// 		title: msg,
+			// 		type: 'success',
+			// 		url: '../index/index',
+			// 		position: 'bottom',
+			// 		isTab:true
+			// 	})
+			// },
+		},
+
 	}
 </script>
 
 <style>
 	.top_item {
 		display: flex;
-		margin-top: 40rpx;
-		margin-left: 32rpx;
-		margin-right: 32rpx;
+		margin-top: 40upx;
+		margin-left: 32upx;
+		margin-right: 32upx;
 		justify-content: space-between;
 	}
 
 	.input-item {
 		display: flex;
-		margin-left: 32rpx;
-		margin-right: 32rpx;
+		margin-left: 32upx;
+		margin-right: 32upx;
 		height: 50px;
 		align-items: center;
 		border-bottom: 1px solid #efeff4;
-		margin-bottom: 20rpx;
+		margin-bottom: 20upx;
 
 		.title-content {
 			display: flex;
@@ -107,10 +117,10 @@
 	.button {
 		height: 50px;
 		line-height: 50px;
-		margin-top: 60rpx;
-		margin-left: 32rpx;
-		margin-right: 32rpx;
-		border-radius: 50rpx;
+		margin-top: 60upx;
+		margin-left: 32upx;
+		margin-right: 32upx;
+		border-radius: 50upx;
 		font-size: 20px;
 		background-color: #008AFE;
 		color: #FFFFFF;

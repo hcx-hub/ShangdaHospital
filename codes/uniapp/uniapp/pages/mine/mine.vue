@@ -7,10 +7,10 @@
 			</view>
 			<view style="margin: 20upx 40upx;">
 				<view style="font-size:40upx;color: #333333;">
-					李四
+					{{patientname}}
 				</view>
 				<view style="margin-top: 50upx;font-size: 30upx;color: #999999;">
-					用户名:
+					用户名:{{username}}
 				</view>
 			</view>
 
@@ -30,15 +30,27 @@
 					backgroundColor: '#eeeeee',
 
 				},
-				imgsrc: ''
+				imgsrc: '',
+				sex:'',
+				username: '',
+				patientname:''
 			}
 		},
-		
+		created() {
+		    this.sex=JSON.parse(sessionStorage.getItem('user')).sex.toString()
+			this.username= JSON.parse(sessionStorage.getItem('user')).username.toString(),
+			this.patientname=JSON.parse(sessionStorage.getItem('user')).patientName.toString()
+			this.load()
+			console.log(JSON.parse(sessionStorage.getItem('user')).sex.toString())
+			console.log(JSON.parse(sessionStorage.getItem('user')).username.toString())
+			console.log(JSON.parse(sessionStorage.getItem('user')).patientName.toString())
+			
+		  },
 		methods: {
 			load() {
 				//获取用户名、头像等信息
 				//如果判断为男生则img设为男生的头像
-				if (true) {
+				if (this.sex==='男') {
 					this.imgsrc = '../../static/icons/man.png'
 				} else {
 					this.imgsrc = '../../static/icons/female.png'
@@ -49,29 +61,6 @@
 	}
 </script>
 
-<style scoped lang="scss">
-	// .wrap {
-	// 	padding: 24rpx;
-	// }
-
-	// .u-row {
-	// 	margin: 40rpx 0;
-	// }
-
-	// .demo-layout {
-	// 	height: 80rpx;
-	// 	border-radius: 8rpx;
-	// }
-
-	// .bg-purple {
-	// 	background: #d3dce6;
-	// }
-
-	// .bg-purple-light {
-	// 	background: #e5e9f2;
-	// }
-
-	// .bg-purple-dark {
-	// 	background: #99a9bf;
-	// }
+<style >
+	
 </style>
