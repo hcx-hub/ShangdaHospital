@@ -1,61 +1,74 @@
 {
 	"easycom": {
-			"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
-		},
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
 
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/Login/Login",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+
 			"path": "pages/index/index",
 			"style": {
-				"backgroundColor":"#f1f1f1",
+				"backgroundColor": "#f1f1f1",
 				"navigationBarTitleText": "首页",
-				"navigationStyle":"custom"
-				
+				"navigationStyle": "custom"
+
 			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"backgroundColor": "#f1f1f1",
+				"navigationBarTitleText": "我",
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/yuyuegua/yuyuegua",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/testaxios/testaxios",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/mine/mine",
-            "style" :                                                                                    
-            {
-                "backgroundColor":"#f1f1f1",
-                "navigationBarTitleText": "我",
-                "navigationStyle":"custom"
-            }
-            
-        }
-        ,{
-            "path" : "pages/yuyuegua/yuyuegua",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+
+
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar":{
-			"color":"#d8d8d8",//未选中时字体颜色
-			"selectedColor":"#444",//选中时字体颜色
-			"list":[
-				{
-					"text":"首页",//菜单名称
-					"pagePath":"pages/index/index",//点击后跳转的页面路径
-					"iconPath":"static/tab/home.png",//当前菜单在未选中时的icon路径
-					"selectedIconPath":"static/tab/home_sele.png"//选中菜单后的新的icon路径
-				},
-				{
-					"text":"我",
-					"pagePath":"pages/mine/mine",
-					"iconPath":"static/tab/mine.png",
-					"selectedIconPath":"static/tab/mine_sele.png"
-				}
-			]
-		}
+	"tabBar": {
+		"color": "#d8d8d8", //未选中时字体颜色
+		"selectedColor": "#444", //选中时字体颜色
+		"list": [{
+				"text": "首页", //菜单名称
+				"pagePath": "pages/index/index", //点击后跳转的页面路径
+				"iconPath": "static/tab/home.png", //当前菜单在未选中时的icon路径
+				"selectedIconPath": "static/tab/home_sele.png" //选中菜单后的新的icon路径
+			},
+			{
+				"text": "我",
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/tab/mine.png",
+				"selectedIconPath": "static/tab/mine_sele.png"
+			}
+		]
+	}
 
 }
